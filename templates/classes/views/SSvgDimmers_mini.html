@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) width="415" height="220" -->
+<svg id="svg2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119 20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs id="defs6">
+  <pattern id="Strips4_334" x="1" y="1" width="0.01" height="0.01" patternTransform="rotate(45)">
+      <rect id="rect434" x="0" y="0" width="0.5%" height="100%" fill="#14303b" fill-opacity=".9"/>
+  </pattern>
+  <pattern id="Strips43" x="0" y="0" width="0.02" height="0.03" fill="#0f85af">
+      <rect id="rect434" x="0" y="0" width="0.8%" height="100%" fill="#0f85af" fill-opacity="1"/>
+  </pattern>
+ </defs>
+ <rect id="relsSliderFon" rx="1" ry="1" height="20" width="100%" y="0" x="0" fill="#14303b" fill-opacity=".8" stroke="#ab773b" stroke-opacity=".01"/>
+ <rect id="relsSlider1" rx="1" ry="1" height="20" width="119" y="0" x="0" fill="url(#Strips4_334)" fill-opacity="1" stroke="#ab773b" stroke-opacity=".01"/>
+ <rect id="rect117" rx="1.2" ry="1.2" height="14" width="105" y="3" x="7.2" fill="#fff" fill-opacity=".1" stroke="#ccc" stroke-opacity=".01"/>
+ <rect id="trayFon1" rx="0.2" ry="0.2" height="10" width="100" y="5" x="10" fill="url(#Strips43)" stroke="#ccc" stroke-width=".06"/> 
+ <rect id="trey1" rx="0.2" ry="0.2" height="10" width="%Dimmer03.level%" y="5" x="10" fill="#fc9a01" fill-opacity=".6"/> 
+<g id="begunSlider1" transform="translate(%Dimmer03.level%, 0)">
+ <circle id="icon%.object_id%_light" cx="10" cy="50%" r="9" fill='%Dimmer03.status|"grey;#da7823"%' fill-opacity="1" stroke="#da7823" stroke-width=".1"/>
+ <circle id="path121" cx="10" cy="50%" r="8" fill="#08384a" fill-opacity="1" stroke="#08384a" stroke-width=".1"/>
+ <text id="dimmer%Dimmer03.object_id%_level" text-anchor="middle" font-size="6px" line-height="5px" y="60%" x="11" font-family="FreeSans" fill="#fd900c"><tspan>%Dimmer03.level%</tspan><tspan font-size="4px">%</tspan></text>
+</g>
+ <rect id="rect117" height="100%" width="25%" y="0" x="0" fill="#fff" fill-opacity=".01" onclick="return dimmerChange%.object_id%('-');"/>
+ <rect id="rect117" height="100%" width="25%" y="0" x="90" fill="#fff" fill-opacity=".01" onclick="return dimmerChange%.object_id%('+');"/>
+</svg>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+function send_cmd() {
+	$.ajax({ type:'get', url:'http://192.168.10.100/sec/?cmd=7:1', dataType: 'jsonp' });
+
+	setTimeout( function() {
+		$.ajax({ type:'get', url:'http://192.168.10.100/sec/?cmd=7:0', dataType: 'jsonp' });
+	 }, 1000);
+	
+}
+</script>
+<script type="text/javascript">
+    var dimmer%.object_id%Level=%.level%;
+    var dimmer%.object_id%Step=5;
+    var dimmer%.object_id%Timer=0;
+    function sendNewLevel%.object_id%() {0
+        setGlobal("Dimmer03.level",dimmer%.object_id%Level);
+    }
+    function dimmerSet%.object_id%(val) {
+        dimmer%.object_id%Level=val;
+        $('#dimmer%.object_id%_level').html(dimmer%.object_id%Level);
+        sendNewLevel%.object_id%();
+    }
+    function dimmerChange%.object_id%(d) {
+        if (d=='+') {
+            dimmer%.object_id%Level+=dimmer%.object_id%Step;
+            if (dimmer%.object_id%Level>100) {
+                dimmer%.object_id%Level=100;
+            }
+        } else {
+            dimmer%.object_id%Level-=dimmer%.object_id%Step;
+            if (dimmer%.object_id%Level<0) {
+                dimmer%.object_id%Level=0;
+            }
+        }
+        $('#dimmer%.object_id%_level').html(dimmer%.object_id%Level);
+        clearTimeout(dimmer%.object_id%Timer);
+        dimmer%.object_id%Timer=setTimeout('sendNewLevel%.object_id%()',1000);
+        return false;
+    }
+</script>
