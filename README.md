@@ -1,2 +1,2 @@
 # majordomo-dimmerv-device
-про
+Простое устройство дополнительное (Dimmerv)
