@@ -4,6 +4,7 @@ $this->device_types['dimmerv'] = array(
     'TITLE'=>'Диммер векторный',
     'PARENT_CLASS'=>'SControllers',
     'CLASS'=>'SSvgDimmers',
+    'DESCRIPTION'=>'Диммер расширенный',
     'PROPERTIES'=>array( 
         'state'=>array('DESCRIPTION'=>'MQTT state', 'ONCHANGE'=>'stateUpdated'),
         'cmnd'=>array('DESCRIPTION'=>'MQTT command'),
